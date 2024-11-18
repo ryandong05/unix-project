@@ -17,7 +17,7 @@ streams Netflix through Kodi. When the user closes the Netflix session in Kodi, 
 Raspberry Pi captures data about the watched content and sends it to a
 Python-based machine learning script. This script uses a pre-trained
 recommendation model to generate personalized movie recommendations based on
-the user's viewing history. These recommendations are sent directly to the user via email, providing a seamless entertainement experience. The project will be presentated by two students and demonstrated on a Rasperry Pi running Kodi with the Netflix add-on. During the presentation, Netflix content will be streamed via Kodi. Once the user stops their session, the recommendation model, running through a python script, will be triggered on the Raspberry Pi, and a sample email containning recommended movies will be sent to the user's inbox. 
+the user's viewing history. These recommendations are sent directly to the user via email, providing a seamless entertainement experience. The project will be presented by two students and demonstrated on a Raspberry Pi running Kodi with the Netflix add-on. During the presentation, Netflix content will be streamed via Kodi. Once the user stops their session, the recommendation model, running through a python script, will be triggered on the Raspberry Pi, and a sample email containing recommended movies will be sent to the user's inbox. 
 
 ## System Functionality 
 
