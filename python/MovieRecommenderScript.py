@@ -1,6 +1,8 @@
 import pandas as pd
 from sklearn.metrics.pairwise import linear_kernel
 import pickle
+import smtplib
+from email.message import EmailMessage
 
 def get_content_based_recommendations(title, metadata_path, tfidf_matrix_path, top_n=3):
     """Generate content-based recommendations based on the listed_in attribute."""
@@ -37,4 +39,42 @@ input_title = "The Office"
 recommendations = get_content_based_recommendations(input_title, metadata_path, tfidf_matrix_path, top_n=3)
 print(f"Recommendations for '{input_title}': {recommendations}")
 
-# TODO: send recommendation through email
+def send_recommendation_email(recommendations, recipient_email, sender_email, sender_password):
+    """Send recommendations via email."""
+    # Creates the email message
+    msg = EmailMessage()
+    msg['Subject'] = 'Your Recommendations Are Here!'
+    msg['From'] = sender_email
+    msg['To'] = recipient_email
+
+    # Formats the recommendations
+    recommendations_list = '\n'.join(recommendations)
+    email_body = f"""
+    Hello,
+
+    Based on your input, here are the top recommendations for you:
+
+    {recommendations_list}
+
+    Enjoy watching!
+
+    Best regards,
+    Recommendation System
+    """
+    msg.set_content(email_body)
+
+    # Sends the email
+    try:
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+            smtp.login(sender_email, sender_password)
+            smtp.send_message(msg)
+            print("Email sent successfully!")
+    except Exception as e:
+        print(f"Failed to send email: {e}")
+
+recipient_email = 'recipient@example.com'
+sender_email = 'your_email@example.com'
+sender_password = 'your_email_password'
+
+send_recommendation_email(recommendations, recipient_email, sender_email, sender_password)
+
