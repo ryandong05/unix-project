@@ -142,7 +142,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Contact
 
 * Project Maintainer: Ryan Dong & Yakin Succès
-* Email: [ryan insert ya email] & yakinsucces24@gmail.com
+* Email: dongr1118@gmail.com & yakinsucces24@gmail.com
 * Github: ryandong05 & YakinSucces
 
 
