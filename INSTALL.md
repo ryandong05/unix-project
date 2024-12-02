@@ -1,13 +1,13 @@
 # How to install Movie Recommender
 
-Step 1.1:
-Install Kodi on Raspberry Pi:
+## Step 1.1
+### Install Kodi on Raspberry Pi:
 - Start up Raspberry Pi via instruction manual
 - when booting, select LibreELEC (Kodi) as OS
 - The Raspberry Pi will now boot as Kodi
 
-Step 1.2:
-Install Netflix:
+## Step 1.2
+### Install Netflix:
 - Download Castagnait add-on repository (https://github.com/CastagnaIT/repository.castagnait) and put it somewhere on the Raspberry Pi
 - Within Kodi:
     - Go to Settings > System > Add-Ons and toggle on Unknown sources
@@ -17,8 +17,8 @@ Install Netflix:
 
 Once set up, Netflix will create the MyVideos75.db SQLite database to store watch history.
 
-Step 1.3:
-Create Docker on Raspberry Pi in order to run python script:
+## Step 1.3
+### Create Docker on Raspberry Pi in order to run python script:
 - Install Docker add-on on Kodi (Go to Add-Ons > Search > 'Docker' and install)
 
 - Connect to the raspberry pi via ssh (whichever way you want) (since im Windows I am using PuTTY for ssh)
@@ -46,8 +46,8 @@ Create Docker on Raspberry Pi in order to run python script:
 - Install Dependencies in the Container
     - ex: pip install pandas scikit-learn sqlite3 email_validator
 
-Step 1.4:
-Make the Script Persistent
+## Step 1.4
+### Make the Script Persistent
 - Detach the Container: Run the container in detached mode:
     - docker run -d --name recommendation-engine \
         -v /storage/python-projects:/app \
@@ -60,17 +60,17 @@ And I pray that it works for you :)
 
 However, this method might not work when trying to install dependencies (pandas and scikit-learn in particular), so you can also try a Ubuntu or Debian based image as so:
 
-Step 2.1: Pull the Ubuntu Image
+## Step 2.1: Pull the Ubuntu Image
 Pull the official Ubuntu 24.04 image:
 - docker pull ubuntu:24.04
 
-Step 2.2: Run and Set Up the Container
+## Step 2.2: Run and Set Up the Container
 Create and start a Docker container with a mounted directory for your project files:
 - docker run -it --name recommendation-engine \
   -v /storage/python-projects:/app \
   ubuntu:24.04 /bin/bash
 
-Step 2.3: Set Up the Environment Inside the Container
+## Step 2.3: Set Up the Environment Inside the Container
 Update the Package Manager: Update and upgrade system packages:
 - apt update && apt upgrade -y
 
@@ -84,7 +84,7 @@ Install pandas and scikit-learn (pray it works for you):
 - apt-install python3-pandas
 - apt-install python3-scikit-learn
 
-Step 2.4: Detach the Container: Run the container in detached mode to allow it to execute in the background:
+## Step 2.4: Detach the Container: Run the container in detached mode to allow it to execute in the background:
 - docker run -d --name recommendation-engine \
   -v /storage/python-projects:/app \
   ubuntu:24.04 bash -c "source /app/venv/bin/activate && python /app/your_script.py"
@@ -97,14 +97,14 @@ Build scikit-learn from Source:
 Step 3.1: Install Build Tools:
 - apt install -y build-essential python3-dev python3-pip gfortran libatlas-base-dev
 
-Step 3.2: Clone the scikit-learn Repository:
+## Step 3.2: Clone the scikit-learn Repository:
 - git clone https://github.com/scikit-learn/scikit-learn.git
 
 Install Build Tools (if not already installed): Ensure that necessary tools for building Python packages are installed:
 - apt update
 - apt install -y build-essential python3-dev python3-pip
 
-Step 3.3 Clone the Cython Repository: Use Git to clone the Cython source code (needed for scikit-learn):
+## Step 3.3 Clone the Cython Repository: Use Git to clone the Cython source code (needed for scikit-learn):
 - git clone https://github.com/cython/cython.git
 - cd cython
 
@@ -112,7 +112,7 @@ Build and Install Cython: Build Cython from source:
 - python3 setup.py build
 - python3 setup.py install
 
-Step 3.4 Go back to scikit-learn directory and install it through venv:
+## Step 3.4 Go back to scikit-learn directory and install it through venv:
 - source /app/venv/bin/activate
 - pip3 install .
 
@@ -122,7 +122,7 @@ Ensure your project files (script, database, CSV, pickle files, etc.) are in the
 - scp /path/to/tfidf_matrix.pkl root@<raspberry-pi-ip>:/storage/python-projects/
 - scp /path/to/MyVideos75.db root@<raspberry-pi-ip>:/storage/python-projects/
 
-Step 3.5 Automate Script Execution:
+## Step 3.5 Automate Script Execution:
 Detach the Container: Run the container in detached mode to allow it to execute in the background:
 - docker run -d --name recommendation-engine \
     -v /storage/python-projects:/app \
@@ -134,11 +134,11 @@ Ensure Restart on Reboot: Configure Docker to restart the container automaticall
 AND IF EVEN THAT FAILS, it might be due to that since you are within a venv, you cannot execute pip commands, so as the terminal might've told you, you must use apt install and etc.
 Therefore, running 'pip3 install .' will not be feasable. So you might say why not use 'python3 install setup.py build' like how we did for cython. Great suggestion! Except of course the latest version of scikit-learn does not contain a setup.py file. So now what you must do is:
 
-Step 4.1: Find a version of scikit-learn that contains a setup.py file:
+## Step 4.1: Find a version of scikit-learn that contains a setup.py file:
 - Go through the versions of git, pick random versions, download the source code and try to find one that has it.
 - Then repeat the steps done in Step 3.X to clone it locally onto the container.
 
-Step 4.2: Pray and install:
+## Step 4.2: Pray and install:
 Like with cython, within the scikit-learn directory, you can now run:
 - python3 setup.py build
 - python3 setup.py install
