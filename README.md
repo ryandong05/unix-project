@@ -31,7 +31,7 @@ Once the user finishes watching their Netflix content and exits their streaming 
 
 * Movie or TV show title
 * Genre(s)
-* Durattion watched (partial or full viewing)
+* Duration watched (partial or full viewing)
 * Date and time of viewing
 
 This will be done either through Kodi's API or a custom plugin. The system will detect when the user finishes a Netflix session, triggering the recommendation process.
