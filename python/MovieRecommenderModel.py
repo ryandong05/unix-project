@@ -4,6 +4,9 @@ import pickle
 
 def preprocess_and_save_cbf_data(metadata_csv, output_metadata_path, output_tfidf_path):
     """Preprocess metadata and save TF-IDF matrix and metadata for CBF."""
+    if not os.path.exists(metadata_csv):
+        raise FileNotFoundError(f"The file {metadata_csv} does not exist.")
+    
     # Load metadata
     metadata_df = pd.read_csv(metadata_csv)
     metadata_df['listed_in'] = metadata_df['listed_in'].fillna("")  # Handle missing categories
