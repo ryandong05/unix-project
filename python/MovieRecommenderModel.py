@@ -22,4 +22,6 @@ def preprocess_and_save_cbf_data(metadata_csv, output_metadata_path, output_tfid
     print(f"TF-IDF matrix saved to {output_tfidf_path}")
 
 # Train and Save Model
-preprocess_and_save_cbf_data("C:/Users/ducky/Documents/GitHubProjects/unix-project/python/csv/netflix_titles.csv", "C:/Users/ducky/Documents/GitHubProjects/unix-project/python/csv/netflix_data.csv", "C:/Users/ducky/Documents/GitHubProjects/unix-project/python/pkl/tfidf_matrix.pkl")
+preprocess_and_save_cbf_data("C:/Users/ducky/Documents/GitHubProjects/unix-project/python/files/netflix_titles.csv", 
+                             "C:/Users/ducky/Documents/GitHubProjects/unix-project/python/files/netflix_titles.csv", 
+                             "C:/Users/ducky/Documents/GitHubProjects/unix-project/python/files/tfidf_matrix.pkl")

@@ -133,12 +133,10 @@ def monitor_kodi_and_recommend(db_path, metadata_path, tfidf_matrix_path, recipi
         else:
             time.sleep(10)  # Check every 10 seconds
 
-""" SAMPLE USAGE 
 db_path = '/path/to/MyVideos75.db'
 metadata_path = './csv/movies.csv'
 tfidf_matrix_path = './pkl/tfidf_matrix.pkl'
-recipient_email = 'recipient@example.com'
-sender_email = 'your_email@example.com'
-sender_password = 'your_email_password'
+recipient_email = 'dongr1118@gmail.com'
+sender_email = 'unixprojecttest@gmail.com'
+sender_password = 'unixprojecttest1!'
 monitor_kodi_and_recommend(db_path, metadata_path, tfidf_matrix_path, recipient_email, sender_email, sender_password)
-"""
