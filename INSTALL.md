@@ -15,7 +15,7 @@
     - Navigate to Add-ons > Install from repository > CastagnaIT Repository > Video add-ons > Netflix.
     - Log into Netflix with credentials (If you require an authorization key, just refer to the CastagnaIT repository from earlier.)
 
-Once set up, Netflix will create the MyVideos75.db SQLite database to store watch history.
+#### *Once set up, Netflix will create the MyVideos75.db SQLite database to store watch history.*
 
 ## Step 1.3
 ### Create Docker on Raspberry Pi in order to run python script:
@@ -35,7 +35,7 @@ Once set up, Netflix will create the MyVideos75.db SQLite database to store watc
           scp /path/to/your/csv_and_pickle_files root@<raspberry-pi-ip>:/storage/python-projects/
     NOTE: Update paths to MovieRecommenderScript.py depending on where the MyVideos75.db file is, where you put the CSV, script files, and etc. on your version of Kodi
 
-    But if you are on Windows device using PuTTY like me, download pscp.exe from PuTTY's website and use pscp instead but in cmd.exe
+    #### *But if you are on Windows device using PuTTY like me, download pscp.exe from PuTTY's website and use pscp instead but in cmd.exe*
     - ex: pscp C:\path\to\file\ root@10.0.0.149:/tvshows
 
 - Run a Container and Mount the Directory Start a container using the python:3.9-slim image and mount the directory for persistent storage:
@@ -56,11 +56,12 @@ Once set up, Netflix will create the MyVideos75.db SQLite database to store watc
 - Restart on Reboot: Configure Docker to restart the container on system boot:
     - docker update --restart always recommendation-engine
 
-And I pray that it works for you :)
+#### *And I pray that it works for you :)*  
 
-However, this method might not work when trying to install dependencies (pandas and scikit-learn in particular), so you can also try a Ubuntu or Debian based image as so:
+#### *However, this method might not work when trying to install dependencies (pandas and scikit-learn in particular), so you can also try a Ubuntu or Debian based image as so:*
 
-## Step 2.1: Pull the Ubuntu Image
+
+# Step 2.1: Pull the Ubuntu Image
 Pull the official Ubuntu 24.04 image:
 - docker pull ubuntu:24.04
 
@@ -89,12 +90,14 @@ Install pandas and scikit-learn (pray it works for you):
   -v /storage/python-projects:/app \
   ubuntu:24.04 bash -c "source /app/venv/bin/activate && python /app/your_script.py"
 
-Ensure Restart on Reboot: Configure Docker to restart the container automatically:
+**Ensure Restart on Reboot:** Configure Docker to restart the container automatically:
 - docker update --restart always recommendation-engine
 
-BUT OF COURSE! Again, installing scikit-learn doesn't work for me as shown above, so if it's the same for you, try manually cloning the packages from git, and running the docker through :
-Build scikit-learn from Source:
-Step 3.1: Install Build Tools:
+#### *BUT OF COURSE! Again, installing scikit-learn doesn't work for me as shown above, so if it's the same for you, try manually cloning the packages from git, and running the docker through :*
+
+**IMPORTANT**-Build scikit-learn from Source:
+
+## Step 3.1: Install Build Tools:
 - apt install -y build-essential python3-dev python3-pip gfortran libatlas-base-dev
 
 ## Step 3.2: Clone the scikit-learn Repository:
@@ -116,7 +119,7 @@ Build and Install Cython: Build Cython from source:
 - source /app/venv/bin/activate
 - pip3 install .
 
-Ensure your project files (script, database, CSV, pickle files, etc.) are in the /storage/python-projects directory on your Raspberry Pi. These files will now be accessible in the container under /app.
+**IMPORTANT**: Ensure your project files (script, database, CSV, pickle files, etc.) are in the /storage/python-projects directory on your Raspberry Pi. These files will now be accessible in the container under /app.
 - scp /path/to/your_script.py root@<raspberry-pi-ip>:/storage/python-projects/
 - acp /path/to/netflix_data.csv root@<raspberry-pi-ip>:/storage/python-projects/
 - scp /path/to/tfidf_matrix.pkl root@<raspberry-pi-ip>:/storage/python-projects/
@@ -131,8 +134,8 @@ Detach the Container: Run the container in detached mode to allow it to execute 
 Ensure Restart on Reboot: Configure Docker to restart the container automatically:
 - docker update --restart always recommendation-engine
 
-AND IF EVEN THAT FAILS, it might be due to that since you are within a venv, you cannot execute pip commands, so as the terminal might've told you, you must use apt install and etc.
-Therefore, running 'pip3 install .' will not be feasable. So you might say why not use 'python3 install setup.py build' like how we did for cython. Great suggestion! Except of course the latest version of scikit-learn does not contain a setup.py file. So now what you must do is:
+#### *AND IF EVEN THAT FAILS, it might be due to that since you are within a venv, you cannot execute pip commands, so as the terminal might've told you, you must use apt install and etc.*
+#### *Therefore, running 'pip3 install .' will not be feasable. So you might say why not use 'python3 install setup.py build' like how we did for cython. Great suggestion! Except of course the latest version of scikit-learn does not contain a setup.py file. So now what you must do is:*
 
 ## Step 4.1: Find a version of scikit-learn that contains a setup.py file:
 - Go through the versions of git, pick random versions, download the source code and try to find one that has it.
@@ -145,8 +148,9 @@ Like with cython, within the scikit-learn directory, you can now run:
 But for me personally, it told me that I needed numpy installed to install scikit-learn. Thing is, I did :)
 So this marks the point where I, Ryan Dong, officially gave up and admitted defeat.
 
-And if all else fails like for me, trying using OSMC Kodi, as it is another Kodi distribution, except with additional functionalities that may allow installation of the necessary dependencies:
-BUT ENSURE:
+**IMPORTANT:** And if all else fails like for me, trying using OSMC Kodi, as it is another Kodi distribution, except with additional functionalities that may allow installation of the necessary dependencies.
+
+**BUT ENSURE:**
 - It is a 64-bit instance of OSMC, as a full python environment that can run a ML model requires it to be 64-bit (if you try 32-bit python won't be able to find scikit-learn or potentially pandas)
 - To build on the previous bullet point, OSMC Versions are tailored to specific Raspberry Pi models, so in my case (RPi4), there are no 64-bit OSMC versions available so I cannot try this method
 And if you meet the necessary requirements Steps 1.X should work for you.
