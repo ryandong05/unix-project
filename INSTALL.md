@@ -17,6 +17,8 @@
 
 #### *Once set up, Netflix will create the MyVideos75.db SQLite database to store watch history.*
 
+#### *NOTE: For all paths within the script and such, you must edit the paths based on your system. You can easily do so by just browsing the files through the Kodi GUI*
+
 ## Step 1.3
 ### Create Docker on Raspberry Pi in order to run python script:
 - Install Docker add-on on Kodi (Go to Add-Ons > Search > 'Docker' and install)
